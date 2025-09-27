@@ -1,22 +1,90 @@
+<程序抬头>
+文件名: API_Documentation.md
+作者: ORBAICODER
+版本: 1.0.1
+日期: 2025-09-27
+概要: 统一端口为 4004；本文件为 ORBAI Core - CAP PostgreSQL API 说明文档（docs 版本）。
+</程序抬头>
+
 # ORBAI Core - CAP PostgreSQL API 文档
 
-**版本**: 1.0.0  
-**日期**: 2025-08-26  
-**作者**: ORBAICODER  
+- 基础URL: `http://localhost:4004`
 
-## 1. 概述
+## 服务一：Travel Service (`/travel`)
 
-本文档详细描述了基于SAP CAP框架和PostgreSQL数据库的后端服务所暴露的OData V4 API。这些服务为ORBAI Core前端应用提供数据访问和业务逻辑处理能力。
+- 元数据URL: `http://localhost:4004/travel/$metadata`
+- URL: `http://localhost:4004/travel/project`
+- URL: `http://localhost:4004/travel/travelentry`
+- URL: `http://localhost:4004/travel/invoices`
+- URL: `http://localhost:4004/travel/createProject`
 
-- **基础URL**: `http://localhost:5885`
+示例 (POST):
 
-## 2. 差旅服务 (Travel Service)
+```
+curl -X POST http://localhost:4004/travel/createProject -H "Content-Type: application/json" -d '{"projectid": "PROJ001", "customerid": "CUST001", "description": "New Project"}'
+```
 
-该服务用于管理差旅相关的项目、行程和发票信息。
+- URL: `http://localhost:4004/travel/createTravel`
 
-- **服务路径**: `/travel`
-- **元数据URL**: `http://localhost:5885/travel/$metadata`
+示例 (POST):
 
-### 2.1. 实体 (Entities)
+```
+curl -X POST http://localhost:4004/travel/createTravel -H "Content-Type: application/json" -d '{"travelid": "TR001", "userid": "USER01", "fromdate": "2025-01-01", "todate": "2025-01-05", "destination": "Shanghai", "projectid": "PROJ001"}'
+```
 
-...（与根目录 API_Documentation.md 相同，略）
+- URL: `http://localhost:4004/travel/createInvoice`
+
+示例 (POST):
+
+```
+curl -X POST http://localhost:4004/travel/createInvoice -H "Content-Type: application/json" -d '{"invoiceno": "INV001", "travelid": "TR001", "userid": "USER01", "invoicedate": "2025-01-10", "totalnetamount": 1000.00, "taxamount": 60.00, "grossamount": 1060.00, "bookingcode": "HOTL"}'
+```
+
+- URL: `http://localhost:4004/travel/getProjectByInvoice(invoiceno='...')`
+
+示例:
+
+```
+curl "http://localhost:4004/travel/getProjectByInvoice(invoiceno='INV001')"
+```
+
+- URL: `http://localhost:4004/travel/getCustomerRelatedData(customerid='...')`
+
+示例:
+
+```
+curl "http://localhost:4004/travel/getCustomerRelatedData(customerid='CUST001')"
+```
+
+- URL: `http://localhost:4004/travel/getInvoicesByTravel(travelid='...',userid='...')`
+
+示例:
+
+```
+curl "http://localhost:4004/travel/getInvoicesByTravel(travelid='TR001',userid='USER01')"
+```
+
+## 服务二：TR Booking Service (`/trbooking`)
+
+- 元数据URL: `http://localhost:4004/trbooking/$metadata`
+- URL: `http://localhost:4004/trbooking/bookingrule`
+
+示例 (GET):
+
+```
+curl "http://localhost:4004/trbooking/bookingrule"
+```
+
+示例 (GET with filter):
+
+```
+curl "http://localhost:4004/trbooking/bookingrule?$filter=code%20eq%20'HOTL'"
+```
+
+- URL: `http://localhost:4004/trbooking/getbookingrule()`
+
+示例:
+
+```
+curl "http://localhost:4004/trbooking/getbookingrule()"
+```
