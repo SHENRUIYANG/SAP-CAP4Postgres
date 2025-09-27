@@ -8,7 +8,7 @@
 
 本项目基于 SAP CAP（Cloud Application Programming Model）和 PostgreSQL，提供差旅与发票管理的 OData V4 服务，包含项目、差旅条目、发票、记账规则等领域模型与操作。你可以使用一键启动脚本快速在本地启动与验证服务。
 
-- 基础 URL（本地示例）：http://localhost:5885
+- 基础 URL（本地示例）：http://localhost:4004
 - 服务：/travel（差旅域）、/trbooking（记账规则域）
 - API 详情：参见根目录 API_Documentation.md
 
@@ -52,15 +52,15 @@
 - 生产环境可设置 BASIC_ADMIN_PASSWORD、BASIC_VIEWER_PASSWORD（用于 server.js 动态注入 Basic 认证）
 
 4) 启动服务（二选一）
-- 使用脚本：./start.sh start --profile development --port 5885
-- 开发/watch：./start.sh watch --profile development --port 5885
+- 使用脚本：./start.sh start --profile development --port 4004
+- 开发/watch：./start.sh watch --profile development --port 4004
 
 > 提示：start.sh 会自动加载 .env；端口可根据需要调整。
 
 ## 启动与常用脚本
 - 一键脚本
-  - ./start.sh start --profile production --port 5885
-  - ./start.sh watch --profile development --port 5885
+  - ./start.sh start --profile production --port 4004
+  - ./start.sh watch --profile development --port 4004
 - npm scripts
   - npm run start（node server.js）
   - npm run serve（cds serve）
@@ -78,10 +78,10 @@
 - 已验证测试用例：见 test_case.txt（记录了成功的 ActionImports/FunctionImports 调用与返回）
 - 元数据：/travel/$metadata、/trbooking/$metadata
 
-示例（本地默认端口 5885）：
-- GET http://localhost:5885/travel/invoices
-- POST http://localhost:5885/travel/createInvoice
-- GET http://localhost:5885/trbooking/getbookingrule()
+示例（本地默认端口 4004）：
+- GET http://localhost:4004/travel/invoices
+- POST http://localhost:4004/travel/createInvoice
+- GET http://localhost:4004/trbooking/getbookingrule()
 
 ## 部署建议
 - 生产环境使用 start.sh start --profile production，并配置生产数据库
@@ -96,7 +96,3 @@
 ## 许可证与维护者
 - License：ISC（见 package.json）
 - 维护者：ORBAICODER
-
----
-
-如需我补充 Postman/REST Client 集合、一键清理测试数据脚本，或将 .cdsrc.json 中凭据改为环境变量注入，请直接提出任务。
