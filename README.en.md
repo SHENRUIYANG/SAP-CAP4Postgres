@@ -3,7 +3,7 @@
 Version: 1.0.1  
 Date: 2025-09-27  
 Author: ORBAICODER
-
+EVEYRTHING AI GENERATED, BE CAREFUL
 ---
 
 This project is built on SAP CAP (Cloud Application Programming Model) with PostgreSQL, providing OData V4 services for Travel and Invoice management, including domains like projects, travel entries, invoices, and booking rules. Use the one-command startup script to quickly run and validate locally.
