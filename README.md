@@ -1,6 +1,6 @@
 # ORBAI Core — CAP + PostgreSQL 服务
 
-版本：1.0.0  
+版本：1.0.1  
 日期：2025-09-27  
 作者：ORBAICODER
 
@@ -33,7 +33,7 @@
 - /db/schema.cds：领域模型（实体映射至既有 PostgreSQL 物理表）
 - /srv/*.cds, /srv/*.js：服务定义与实现
 - /server.js：CAP 启动引导（.env 加载、CORS 等）
-- /start.sh：一键启动脚本（支持 start/watch、profile、port）
+- /start.sh：一键启动脚本（支持 start/watch、profile、port，启动时输出有效端口）
 - /API_Documentation.md：OData API 说明
 - /test_case.txt：已验证的 Action/Function 调用与示例
 - /.cdsrc.json：CAP 运行时配置（包含 requires/db、auth 等）
@@ -55,7 +55,7 @@
 - 使用脚本：./start.sh start --profile development --port 4004
 - 开发/watch：./start.sh watch --profile development --port 4004
 
-> 提示：start.sh 会自动加载 .env；端口可根据需要调整。
+> 提示：start.sh 会自动加载 .env；端口可根据需要调整。若未设置端口，将默认使用 4004 并在启动日志中打印。
 
 ## 启动与常用脚本
 - 一键脚本
@@ -67,6 +67,11 @@
   - npm run build（cds build）
   - npm run deploy（cds deploy）
   - npm run dev（cds watch --with-mocks --in-memory）
+
+### 修改端口的三种方式
+- 命令行参数：./start.sh start --port 5000 或 ./start.sh watch --port 5000
+- 环境变量：在 .env 或 CI 注入 PORT=5000
+- cds 配置：在 .cdsrc.json 的 "server" 或相关配置中定义端口（若启用）
 
 ## 环境变量与安全
 - 请勿提交 .env，仓库已包含标准 .gitignore（忽略 .env 与其他敏感/生成文件）
